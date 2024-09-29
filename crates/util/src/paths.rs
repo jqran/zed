@@ -99,19 +99,20 @@ impl<T: AsRef<Path>> PathExt for T {
 pub const FILE_ROW_COLUMN_DELIMITER: char = ':';
 
 const ROW_COL_CAPTURE_REGEX: &str = r"(?x)
-    ([^\(]+)(?:
-        \((\d+),(\d+)\) # filename(row,column)
-        |
-        \((\d+)\)()     # filename(row)
-    )
-    |
     (.+?)(?:
         \:+(\d+)\:(\d+)\:*$  # filename:row:column
         |
         \:+(\d+)\:*()$       # filename:row
         |
         \:*()()$             # filename:
-    )";
+    )
+    |
+    ([^\(]+)(?:
+        \((\d+),(\d+)\) # filename(row,column)
+        |
+        \((\d+)\)()     # filename(row)
+    )
+    ";
 
 /// A representation of a path-like string with optional row and column numbers.
 /// Matching values example: `te`, `test.rs:22`, `te:22:5`, `test.c(22)`, `test.c(22,5)`etc.
